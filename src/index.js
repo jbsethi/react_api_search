@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import UiSelectReact from './components/UiSelectReact/index'
+import UiSelectReact from './components/UiSelectReact/index.js'
 import './main.css'
 
 ReactDOM.render(
@@ -8,7 +8,6 @@ ReactDOM.render(
     <div className="container">
       <UiSelectReact
         url="https://www.googleapis.com/books/v1/volumes"
-        color="green"
         reduceRecord={(record) => record.items}
         reduceListItem={ item => (
           <div>

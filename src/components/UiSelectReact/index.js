@@ -1,84 +1,37 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import useFetch from './useFetch'
+import Dropdown from './dropdown'
 import './main.css'
-
-const selectStyle = (color) => {
-  const style = {}
-  
-  style.borderColor = color || '#1D273E'
-
-  return style
-}
 
 const Select = ({
   url,      // API url from where you want to get data
-  prepend,  // If you want to prepend anything to the input
-  append,   // If you want to append anuthing to the input
-  color,     // Primary color of the select container
   reduceRecord,
-  reduceListItem,
-  children
+  reduceListItem
 }) => {
-  const style = selectStyle(color)
-
+  const queryInput = useRef('')
   const [isFocused, setIsFocused] = useState(false)
-  const [queryinput, setQueryInput] = useState('')
   const [queryString, setQueryString] = useState('')
 
   const { loading, records } = useFetch(url, queryString, reduceRecord)
 
   const searchQueryString = () => {
-    setQueryString(queryinput)
+    setQueryString(queryInput.current.value)
   }
 
   return (
-    <div style={style} className="r-select">
-        {
-          (prepend !== undefined) &&
-          <div className="r-select__preppend">
-            {prepend}
-          </div>
-        }
+    <div className="r-select" onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)}>
         <div className="r-select__body">
-          <input
-            type="text"
-            value={queryinput}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
-            onInput={(e) => setQueryInput(e.target.value)}
-          />
+          <input type="text" ref={queryInput} />
           {
             isFocused &&
             !loading &&
             records.length > 0 &&
-            <div className="r-select__options">
-              <ul className="r-select__list" style={style} >
-              {
-                records.map(record => (
-                  <li key={record.id} className="r-select__item" style={style} >
-                    {
-                      reduceListItem(record)
-                    }
-                  </li>
-                ))
-              }
-              </ul>
-            </div>
+            <Dropdown records={records} reduceListItem={reduceListItem} />
           }
         </div>
-        {
-          append &&
-          <div className="r-select__append">
-          {append}
-          </div>
-        }
 
         <div className="r-select__trigger">
-          <button
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
-            onClick={() => searchQueryString()}
-          >
+          <button onClick={() => searchQueryString()} >
             Search
           </button>
         </div>

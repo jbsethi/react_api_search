@@ -37,7 +37,7 @@
 }
 
 .r-select__list {
-    max-height: 120px;
+    max-height: 180px;
     overflow: auto;
     list-style: none;
     padding: 5px 0px;
