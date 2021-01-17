@@ -1,0 +1,55 @@
+.r-select {
+    display: flex;
+    width: 100%;
+    border: 1px solid;
+    border-radius: 4px;
+}
+
+.r-select__preppend, .r-select__append {
+    flex: auto;
+}
+
+.r-select__body {
+    flex: 100%;
+    position: relative;
+}
+
+.r-select__body > input {
+    width: 100%;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 4px;
+}
+
+.r-select__trigger button {
+    height: 100%;
+    padding: 10px;
+}
+
+.r-select__options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+}
+
+.r-select__list {
+    max-height: 120px;
+    overflow: auto;
+    list-style: none;
+    padding: 5px 0px;
+    border: 1px solid;
+    box-shadow: 0px 5px 10px #888;
+}
+
+.r-select__item {
+    padding: 8px;
+    border-bottom: 1px solid;
+}
+
+.r-select__item:last-of-type {
+    border-bottom: none;
+}
